@@ -30,6 +30,7 @@ import br.model.Curso;
 import br.model.Departamento;
 import br.model.Disciplinas;
 import br.model.StatusCd;
+import javax.swing.UIManager;
 
 public class JanelaInserirCurso extends JFrame {
 
@@ -87,6 +88,7 @@ public class JanelaInserirCurso extends JFrame {
 
 		preencherchoice();
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
@@ -96,6 +98,7 @@ public class JanelaInserirCurso extends JFrame {
 		frame.getContentPane().add(btnFechar);
 
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ds = new Datasource();
@@ -221,6 +224,7 @@ public class JanelaInserirCurso extends JFrame {
 				});
 
 		JButton buttontoRight = new JButton(">");
+		buttontoRight.setBackground(UIManager.getColor("Button.disabledShadow"));
 		buttontoRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ds = new Datasource();
@@ -239,6 +243,7 @@ public class JanelaInserirCurso extends JFrame {
 		frame.getContentPane().add(buttontoRight);
 
 		JButton buttontoLeft = new JButton("<");
+		buttontoLeft.setBackground(UIManager.getColor("Button.disabledShadow"));
 		buttontoLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object coluna = tableSecundario.getValueAt(tableSecundario.getSelectedRow(), 0);
@@ -283,6 +288,7 @@ public class JanelaInserirCurso extends JFrame {
 		((JScrollPane) scrollPaneTerciario).setViewportView(tableTerciario);
 
 		JButton buttonRight2 = new JButton(">");
+		buttonRight2.setBackground(UIManager.getColor("Button.disabledShadow"));
 		buttonRight2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Object coluna = tableSecundario.getValueAt(tableSecundario.getSelectedRow(), 0);
@@ -312,6 +318,7 @@ public class JanelaInserirCurso extends JFrame {
 		frame.getContentPane().add(buttonRight2);
 
 		JButton buttonLeft2 = new JButton("<");
+		buttonLeft2.setBackground(UIManager.getColor("Button.disabledShadow"));
 		buttonLeft2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Object coluna = tableTerciario.getValueAt(tableTerciario.getSelectedRow(), 0);

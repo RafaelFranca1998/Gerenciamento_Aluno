@@ -30,6 +30,7 @@ import br.dao.DAOCursos;
 import br.model.Aluno;
 import br.model.Curso;
 import br.window.JanelaGerenciamentoAluno;
+import javax.swing.UIManager;
 
 public class JanelaInserirAluno extends JFrame {
 
@@ -74,6 +75,7 @@ public class JanelaInserirAluno extends JFrame {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize() {
 		frame = new JFrame("Inserir Aluno");
 		frame.setAlwaysOnTop(true);
@@ -109,11 +111,18 @@ public class JanelaInserirAluno extends JFrame {
 		mascaraTelefone.setValidCharacters("0123456789");
 		mascaraCpf.setValidCharacters("0123456789");
 
-		JButton btnLimpar = new JButton("Limpar");
-		btnLimpar.setBounds(365, 377, 89, 23);
+		JButton btnLimpar = new JButton("Fechar");
+		btnLimpar.setBackground(UIManager.getColor("Button.disabledShadow"));
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
+		btnLimpar.setBounds(321, 377, 89, 23);
 		frame.getContentPane().add(btnLimpar);
 
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnAdicionar.setBounds(160, 377, 89, 23);
 		frame.getContentPane().add(btnAdicionar);
 
@@ -138,21 +147,43 @@ public class JanelaInserirAluno extends JFrame {
 		frame.getContentPane().add(lblCpf);
 
 		JLabel lblDataDeNascimento = new JLabel("Data de nascimento:");
-		lblDataDeNascimento.setBounds(55, 114, 115, 14);
+		lblDataDeNascimento.setBounds(55, 114, 139, 14);
 		frame.getContentPane().add(lblDataDeNascimento);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(201, 195, 225, 150);
+		scrollPane.setBounds(173, 195, 225, 150);
 		frame.getContentPane().add(scrollPane);
 
 		table = new JTable();
+		table.setCellSelectionEnabled(true);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setBounds(0, 0, 223, 1);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		table.setModel(new DefaultTableModel(new Object[][] { { null, null }, { null, null }, { null, null },
-				{ null, null }, { null, null }, { null, null }, { null, null }, { null, null }, },
-				new String[] { "ID", "Curso" }));
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+				{null, null},
+			},
+			new String[] {
+				"ID", "Curso"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(0).setPreferredWidth(25);
+		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(1).setPreferredWidth(120);
 		updateTableCursos();
 		scrollPane.setViewportView(table);

@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import br.dao.Datasource;
 import br.dao.DAOAluno;
 import br.model.Aluno;
+import javax.swing.UIManager;
+import java.awt.Color;
 	
 /**
  * @author Rafael
@@ -53,12 +55,14 @@ public class JanelaAlunosCurso {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize(int id) {
 		idCurso = id;
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
 		table = new JTable();
 		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setBounds((d.width/2)-225, (d.height/2)-150, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -68,6 +72,7 @@ public class JanelaAlunosCurso {
 		frame.getContentPane().add(scrollPane);
 
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -92,10 +97,6 @@ public class JanelaAlunosCurso {
 				"ID", "Nome do Aluno"
 			}
 		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 			boolean[] columnEditables = new boolean[] {
 				false, false
 			};

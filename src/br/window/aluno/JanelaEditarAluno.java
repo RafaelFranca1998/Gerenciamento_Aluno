@@ -32,6 +32,7 @@ import br.dao.Datasource;
 import br.model.Aluno;
 import br.model.Curso;
 import br.window.JanelaGerenciamentoAluno;
+import javax.swing.UIManager;
 
 public class JanelaEditarAluno extends JFrame {
 	private static final long serialVersionUID = 7889475273883412172L;
@@ -71,14 +72,15 @@ public class JanelaEditarAluno extends JFrame {
 	public JanelaEditarAluno() {
 		BDAlunos = new Aluno();
 		initialize();
-		preencherCampos();
 		atualizarTabelaCurso();
+		preencherCampos();
 
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize() {
 		frame = new JFrame("Editar Aluno");
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -113,16 +115,18 @@ public class JanelaEditarAluno extends JFrame {
 		mascaraCpf.setValidCharacters("0123456789");
 
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
 			}
 		});
-		btnFechar.setBounds(380, 376, 89, 23);
+		btnFechar.setBounds(355, 376, 89, 23);
 		frame.getContentPane().add(btnFechar);
 
 		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.setBounds(195, 376, 89, 23);
+		btnAdicionar.setBackground(UIManager.getColor("Button.disabledShadow"));
+		btnAdicionar.setBounds(148, 376, 89, 23);
 		frame.getContentPane().add(btnAdicionar);
 
 		textFieldNome = new TextField();
@@ -130,11 +134,11 @@ public class JanelaEditarAluno extends JFrame {
 		frame.getContentPane().add(textFieldNome);
 
 		JLabel lblNome = new JLabel("Nome Completo:");
-		lblNome.setBounds(55, 37, 206, 14);
+		lblNome.setBounds(37, 37, 163, 14);
 		frame.getContentPane().add(lblNome);
 
 		JLabel lblRg = new JLabel("RG:");
-		lblRg.setBounds(55, 63, 46, 14);
+		lblRg.setBounds(37, 62, 46, 14);
 		frame.getContentPane().add(lblRg);
 
 		textfieldFormattedRG = new JFormattedTextField(mascaraRG);
@@ -142,15 +146,15 @@ public class JanelaEditarAluno extends JFrame {
 		frame.getContentPane().add(textfieldFormattedRG);
 
 		JLabel lblCpf = new JLabel("CPF:");
-		lblCpf.setBounds(55, 88, 46, 14);
+		lblCpf.setBounds(37, 91, 46, 14);
 		frame.getContentPane().add(lblCpf);
 
 		JLabel lblDataDeNascimento = new JLabel("Data de nascimento:");
-		lblDataDeNascimento.setBounds(55, 114, 115, 14);
+		lblDataDeNascimento.setBounds(37, 114, 115, 14);
 		frame.getContentPane().add(lblDataDeNascimento);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(218, 204, 225, 150);
+		scrollPane.setBounds(195, 198, 225, 150);
 		frame.getContentPane().add(scrollPane);
 
 		table = new JTable();
@@ -161,17 +165,26 @@ public class JanelaEditarAluno extends JFrame {
 				id = Integer.parseInt(coluna.toString());
 			}
 		});
-		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		table.setBounds(0, 0, 223, 1);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		table.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "ID", "Curso" }) {
-			private static final long serialVersionUID = 1L;
-			boolean[] canEdit = new boolean[] { false, false };
-
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return canEdit[columnIndex];
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+			},
+			new String[] {
+				"ID", "Curso"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
 			}
 		});
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(1).setResizable(false);
 		scrollPane.setViewportView(table);
 
 		textFieldNome.addTextListener(new TextListener() {
@@ -262,6 +275,17 @@ public class JanelaEditarAluno extends JFrame {
 		textFieldNome.setText(aluno.getNome());
 		textfieldFormattedRG.setText(aluno.getRg());
 		textfieldFormattedCPF.setText(aluno.getCpf());
-
+		String data =  aluno.getDataNascimento();
+		String resultado[] =  data.split("-");
+		choiceAno.select(resultado[0]);
+		choiceMes.select(resultado[1]);
+		choiceDia.select(resultado[2]);
+		int idtabela = 0;
+		for (int i = 0; i < table.getRowCount(); i++) {
+			idtabela = (int) table.getValueAt(i, 0);				
+			if (idtabela == aluno.getidCurso()) {
+				table.setRowSelectionInterval(i, i);
+			}			
+		}
 	}
 }

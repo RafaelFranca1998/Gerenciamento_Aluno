@@ -15,6 +15,7 @@ import br.dao.Datasource;
 import br.dao.DAOAluno;
 import br.dao.DAODisciplinas;
 import br.model.Disciplinas;
+import javax.swing.UIManager;
 
 public class JanelaInserirDisciplina extends JFrame {
 
@@ -63,6 +64,7 @@ public class JanelaInserirDisciplina extends JFrame {
 		frame.getContentPane().setLayout(null);
 
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
@@ -72,6 +74,7 @@ public class JanelaInserirDisciplina extends JFrame {
 		frame.getContentPane().add(btnFechar);
 
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ds = new Datasource();

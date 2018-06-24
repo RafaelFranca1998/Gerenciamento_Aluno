@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -55,21 +54,20 @@ import br.window.curso.JanelaGerenciaCurso;
 import br.window.departamento.JanelaGerenciaDepartamento;
 
 public class JanelaGerenciamentoAluno {
+// COMPONENTES DA TELA
+//#################################################################################################
 	private static JFrame frmGerenciamentoAluno = new JFrame();
 	private TextField textFieldPesquisa = new TextField();
-
 	private static JTable tabelaResultado = new JTable();
-
 	public JScrollPane scrollPaneAlunos = new JScrollPane();
 	public JScrollPane scrollPaneCursos = new JScrollPane();
 
 	private Label lblPesquisar = new Label("Pesquisar");
 	private JLabel lblFiltroCurso = new JLabel("Curso");
 	private JLabel lblPesquisarNome = new JLabel("Pesquisar Nome");
-	private JLabel lblFiltroTurno = new JLabel("Turno");
 	private JLabel lblFiltrosDePesquisa = new JLabel("Filtros de Pesquisa");
 	private Label lblLabelInicio = new Label("Inicio");
-	private JLabel lblImage = new JLabel("");
+	private JLabel lblImagem = new JLabel("");
 	JLabel labelIdCurso = new JLabel("");
 	private Choice choicePesquisarCurso = new Choice();;
 	private static JButton btnRemover = new JButton("Remover");
@@ -83,20 +81,6 @@ public class JanelaGerenciamentoAluno {
 	private JMenu mnInicio = new JMenu("Inicio");
 	private JMenu mnAjuda = new JMenu("Ajuda");
 
-	private JMenuItem mntmSair = new JMenuItem("Sair");
-	private JMenuItem mntmSobre = new JMenuItem("Sobre...");
-
-	private JCheckBox chckbxMatutino = new JCheckBox("Matutino");
-	private JCheckBox chckbxVespertino = new JCheckBox("Vespertino");
-	private JCheckBox chckbxNoturno = new JCheckBox("Noturno");
-
-	private static Datasource ds;
-	private static DAOAluno daoAluno;
-	private Aluno BDAlunos;
-	private int id = -1;
-	private int idCurso = -1;
-	private boolean atualizado, clickado1, clickado2, clickado3;
-
 	private JPopupMenu popupMenuCursos = new JPopupMenu();
 	private final JPopupMenu popupMenuAluno = new JPopupMenu();
 	private Label lblFerramentas;
@@ -109,8 +93,21 @@ public class JanelaGerenciamentoAluno {
 	private final JButton btnInserirAluno = new JButton("Inserir Aluno");
 	private final JButton btnGerenciarDepartamento = new JButton("Gerenciar Departamentos");
 
+	private JMenuItem mntmSair = new JMenuItem("Sair");
+	private JMenuItem mntmSobre = new JMenuItem("Sobre...");
+// VARIAVEIS USADAS
+//#################################################################################################
+
+	private static Datasource ds;
+	private static DAOAluno daoAluno;
+	private Aluno BDAlunos;
+	private int id = -1;
+	private int idCurso = -1;
+	private boolean atualizado, clickado1, clickado2, clickado3;
+
+
 	/**
-	 * Launch the application.
+	 * 	Roda a Aplicação.
 	 */
 
 	public static void run() {
@@ -122,7 +119,7 @@ public class JanelaGerenciamentoAluno {
 	}
 
 	/**
-	 * Create the application.
+	 * Cria a Aplicação.
 	 */
 	public JanelaGerenciamentoAluno() {
 		initialize();
@@ -142,7 +139,9 @@ public class JanelaGerenciamentoAluno {
 					BD2.getDataNascimento(), BD2.getidCurso(), BD2.getNomeCurso() });
 		}
 	}
-
+	/**
+	 * Preenche a tabela de cursos com dados e atualiza.
+	 */
 	public void updateTableCursos() {
 		ds = new Datasource();
 		new DAOCursos(ds);
@@ -152,7 +151,9 @@ public class JanelaGerenciamentoAluno {
 			modelo.addRow(new Object[] { cs2.getIdCurso(), cs2.getNome() });
 		}
 	}
-
+	/**
+	 * Preenche a tabela de Alunos com dados e atualiza .
+	 */
 	public void updateByCurso(int idCurso) {
 		ds = new Datasource();
 		new DAOAluno(ds);
@@ -163,7 +164,9 @@ public class JanelaGerenciamentoAluno {
 					BD2.getDataNascimento(), BD2.getidCurso(), BD2.getNomeCurso() });
 		}
 	}
-
+	/**
+	 * Preenche a tabela de Alunos com o nome inserido.
+	 */
 	private void updateByName(String name) {
 		ds = new Datasource();
 		daoAluno = new DAOAluno(ds);
@@ -175,7 +178,9 @@ public class JanelaGerenciamentoAluno {
 					BD2.getNomeCurso() });
 		}
 	}
-
+	/**
+	 * Preenche as opções de curso (no menu pesquisar).
+	 */
 	private void preencerChoiceCursos() {
 		ds = new Datasource();
 		new DAOCursos(ds);
@@ -184,12 +189,12 @@ public class JanelaGerenciamentoAluno {
 			choicePesquisarCurso.add(C.getNome());
 		}
 	}
-
+	
 	public static void enableWindow(boolean b) {
 		frmGerenciamentoAluno.setEnabled(b);
 		atualizarTabelaAluno();
 	}
-
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -211,12 +216,13 @@ public class JanelaGerenciamentoAluno {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializa os componentes da Tela.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize() {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
-		frmGerenciamentoAluno.setBounds((d.width / 2) - 530, (d.height / 2) - 300, 1200, 600);
+		frmGerenciamentoAluno.setBounds((d.width / 2) - 600, (d.height / 2) - 300, 1200, 600);
 		frmGerenciamentoAluno.getContentPane().setBackground(Color.WHITE);
 		frmGerenciamentoAluno.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frmGerenciamentoAluno.setBackground(Color.BLACK);
@@ -236,29 +242,13 @@ public class JanelaGerenciamentoAluno {
 
 		lblFiltroCurso.setBounds(20, 111, 123, 14);
 		panelPesquisar.add(lblFiltroCurso);
-
-		lblFiltroTurno.setBounds(21, 169, 46, 14);
-
-		panelPesquisar.add(lblFiltroTurno);
-
-		chckbxMatutino.setBackground(Color.WHITE);
-		chckbxMatutino.setBounds(20, 190, 97, 23);
-		panelPesquisar.add(chckbxMatutino);
-
-		chckbxVespertino.setBackground(Color.WHITE);
-		chckbxVespertino.setBounds(20, 227, 97, 23);
-		panelPesquisar.add(chckbxVespertino);
-
-		chckbxNoturno.setBackground(Color.WHITE);
-		chckbxNoturno.setForeground(Color.BLACK);
-		chckbxNoturno.setBounds(20, 264, 97, 23);
-		panelPesquisar.add(chckbxNoturno);
 		textFieldPesquisa.setBounds(20, 38, 175, 20);
 		panelPesquisar.add(textFieldPesquisa);
 		panelCursos.setBorder(UIManager.getBorder("ToolTip.border"));
 		panelCursos.setBackground(Color.WHITE);
 
 		panelCursos.setVisible(true);
+		//listener da pesquisa. (Enter para pesquisar)
 		textFieldPesquisa.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -327,14 +317,10 @@ public class JanelaGerenciamentoAluno {
 
 		tableCursos = new JTable();
 		scrollPaneCursos.setColumnHeaderView(tableCursos);
-
+		//Configura a Tabela
 		tableCursos.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		tableCursos.setModel(new DefaultTableModel(new Object[][] { { null, null }, { null, null }, { null, null },
 				{ null, null }, { null, null }, { null, null }, }, new String[] { "ID", "Curso" }) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 			boolean[] columnEditables = new boolean[] { false, false };
 
 			public boolean isCellEditable(int row, int column) {
@@ -343,7 +329,9 @@ public class JanelaGerenciamentoAluno {
 		});
 		tableCursos.getColumnModel().getColumn(0).setResizable(false);
 		tableCursos.getColumnModel().getColumn(0).setPreferredWidth(32);
+		tableCursos.getColumnModel().getColumn(1).setResizable(false);
 		tableCursos.getColumnModel().getColumn(1).setPreferredWidth(190);
+		//Listener para obter o ID selecionado na tabela.
 		tableCursos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -360,7 +348,7 @@ public class JanelaGerenciamentoAluno {
 				}
 				Object coluna = tableCursos.getValueAt(tableCursos.getSelectedRow(), 0);
 				idCurso = Integer.parseInt(coluna.toString());
-				System.out.println(idCurso);
+				System.out.println("[Log] Curso ID: "+idCurso);
 			}
 
 			@Override
@@ -540,7 +528,7 @@ public class JanelaGerenciamentoAluno {
 				}
 				Object coluna = tabelaResultado.getValueAt(tabelaResultado.getSelectedRow(), 0);
 				id = Integer.parseInt(coluna.toString());
-				System.out.println(id);
+				System.out.println("[Log] ID: " + id);
 			}
 
 			@Override
@@ -561,7 +549,13 @@ public class JanelaGerenciamentoAluno {
 						{ null, null, null, null, null, null, null }, { null, null, null, null, null, null, null },
 						{ null, null, null, null, null, null, null }, { null, null, null, null, null, null, null },
 						{ null, null, null, null, null, null, null }, },
-				new String[] { "ID", "Nome", "RG", "CPF", "Idade", "Id do Curso", "Nome do Curso" }));
+				new String[] { "ID", "Nome", "RG", "CPF", "Idade", "Id do Curso", "Nome do Curso" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false };
+
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		tabelaResultado.getColumnModel().getColumn(0).setResizable(false);
 		tabelaResultado.getColumnModel().getColumn(0).setPreferredWidth(34);
 		tabelaResultado.getColumnModel().getColumn(1).setPreferredWidth(105);
@@ -713,10 +707,10 @@ public class JanelaGerenciamentoAluno {
 		lblFerramentas.setFont(new Font("Yu Gothic Light", Font.PLAIN, 20));
 		lblFerramentas.setBounds(1, 140, 162, 37);
 		panelMenu.add(lblFerramentas);
-		lblImage.setBounds(54, 298, 89, 144);
-		panelMenu.add(lblImage);
+		lblImagem.setBounds(54, 298, 89, 144);
+		panelMenu.add(lblImagem);
 
-		lblImage.setIcon(new ImageIcon(JanelaGerenciamentoAluno.class.getResource("/src/resources/aluno.png")));
+		lblImagem.setIcon(new ImageIcon(JanelaGerenciamentoAluno.class.getResource("/src/resources/aluno.png")));
 		lblSistemaAluno.setBounds(30, 298, 133, 29);
 		panelMenu.add(lblSistemaAluno);
 		lblSistemaAluno.setFont(new Font("Sitka Banner", Font.PLAIN, 20));

@@ -15,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import br.dao.Datasource;
 import br.dao.DAOCursos;
 import br.model.Disciplinas;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class JanelaDisciplinasObrigatorias {
 
@@ -45,11 +47,13 @@ public class JanelaDisciplinasObrigatorias {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize(int id) {
 		int idCurso =  id;
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
 		frmDisciplinasObrigatrias = new JFrame();
+		frmDisciplinasObrigatrias.getContentPane().setBackground(Color.WHITE);
 		frmDisciplinasObrigatrias.setTitle("Disciplinas Obrigat\u00F3rias");
 		frmDisciplinasObrigatrias.setBounds((d.width/2)-225, (d.height/2)-150, 450, 300);
 		frmDisciplinasObrigatrias.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -70,12 +74,21 @@ public class JanelaDisciplinasObrigatorias {
 			new String[] {
 				"Disciplina Obrigat\u00F3ria"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(0).setPreferredWidth(199);
 
 		updateTableAlunoCurso(idCurso);
 		
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmDisciplinasObrigatrias.dispose();

@@ -16,6 +16,8 @@ import br.dao.DAOAluno;
 import br.dao.DAODepartamento;
 import br.dao.Datasource;
 import br.model.Departamento;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class JanelaInserirDepartamento extends JFrame {
 
@@ -56,6 +58,7 @@ public class JanelaInserirDepartamento extends JFrame {
 	 */
 	private void initialize() {
 		frmInserirDepartamento = new JFrame("Inserir Aluno");
+		frmInserirDepartamento.getContentPane().setBackground(Color.WHITE);
 		frmInserirDepartamento.setTitle("Inserir Departamento");
 		frmInserirDepartamento.setResizable(false);
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -65,6 +68,7 @@ public class JanelaInserirDepartamento extends JFrame {
 		frmInserirDepartamento.getContentPane().setLayout(null);
 
 		JButton btnFechar = new JButton("Fechar");
+		btnFechar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnFechar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmInserirDepartamento.dispose();
@@ -74,6 +78,7 @@ public class JanelaInserirDepartamento extends JFrame {
 		frmInserirDepartamento.getContentPane().add(btnFechar);
 
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnAdicionar.setBounds(157, 240, 89, 23);
 		frmInserirDepartamento.getContentPane().add(btnAdicionar);
 

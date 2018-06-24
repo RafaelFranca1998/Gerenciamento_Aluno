@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import br.dao.Datasource;
 import br.dao.DAOCursos;
 import br.model.Disciplinas;
+import java.awt.Color;
 
 public class JanelaDisciplinasOptativas {
 
@@ -45,11 +46,13 @@ public class JanelaDisciplinasOptativas {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize(int id) {
 		int idCurso = id;
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
 		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setResizable(false);
 		frame.setBounds((d.width / 2) - 225, (d.height / 2) - 150, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -63,18 +66,28 @@ public class JanelaDisciplinasOptativas {
 
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setModel(
-				new DefaultTableModel(new Object[][] { { null, null }, { null, null }, { null, null }, { null, null },
-						{ null, null }, { null, null }, { null, null }, }, new String[] { "Disciplina Optativa" }) {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 272139891352332087L;
-					boolean[] columnEditables = new boolean[] { false };
-
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+				new DefaultTableModel(
+			new Object[][] {
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+			},
+			new String[] {
+				"Disciplina Optativa"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setResizable(false);
 
 		JButton btnFechar = new JButton("Fechar");
 		btnFechar.addActionListener(new ActionListener() {

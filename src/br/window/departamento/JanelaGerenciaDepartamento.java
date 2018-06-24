@@ -15,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import br.dao.Datasource;
 import br.dao.DAODepartamento;
 import br.model.Departamento;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class JanelaGerenciaDepartamento {
 
@@ -49,8 +51,10 @@ public class JanelaGerenciaDepartamento {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.WHITE);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
 		frame.setBounds((d.width / 2) - 315, (d.height / 2) - 200, 630, 400);
@@ -63,6 +67,7 @@ public class JanelaGerenciaDepartamento {
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.setCellSelectionEnabled(true);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
@@ -74,10 +79,21 @@ public class JanelaGerenciaDepartamento {
 			new String[] {
 				"ID", "Nome", "Descri\u00E7\u00E3o"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(2).setResizable(false);
 		scrollPane.setViewportView(table);
 		
 		JButton btnInserirDepartamento = new JButton("Inserir Departamento");
+		btnInserirDepartamento.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnInserirDepartamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JanelaInserirDepartamento.run();
@@ -87,6 +103,7 @@ public class JanelaGerenciaDepartamento {
 		frame.getContentPane().add(btnInserirDepartamento);
 		
 		JButton btnRemoverDepartamento = new JButton("Remover Departamento");
+		btnRemoverDepartamento.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnRemoverDepartamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

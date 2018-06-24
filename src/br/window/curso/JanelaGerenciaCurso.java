@@ -16,10 +16,8 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import br.dao.DAOCursos;
-import br.dao.DAODepartamento;
 import br.dao.Datasource;
 import br.model.Curso;
-import br.model.Departamento;
 
 public class JanelaGerenciaCurso {
 
@@ -55,6 +53,7 @@ public class JanelaGerenciaCurso {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize() {
 		table = new JTable();
 		scrollPane = new JScrollPane();
@@ -89,10 +88,6 @@ public class JanelaGerenciaCurso {
 				"ID", "Curso"
 			}
 		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 			boolean[] columnEditables = new boolean[] {
 				false, false
 			};
@@ -113,7 +108,7 @@ public class JanelaGerenciaCurso {
 				JanelaAlunosCurso.run(idCurso);
 			}
 		});
-		btnExibirAlunosDo.setBounds(399, 327, 175, 23);
+		btnExibirAlunosDo.setBounds(399, 379, 175, 23);
 		frameCurso.getContentPane().add(btnExibirAlunosDo);
 		btnDisciplinasObrigatrias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -123,7 +118,7 @@ public class JanelaGerenciaCurso {
 			}
 		});
  
-		btnDisciplinasObrigatrias.setBounds(201, 327, 188, 23);
+		btnDisciplinasObrigatrias.setBounds(201, 379, 188, 23);
 		frameCurso.getContentPane().add(btnDisciplinasObrigatrias);
 
 		
@@ -134,7 +129,7 @@ public class JanelaGerenciaCurso {
 				JanelaDisciplinasOptativas.run(idCurso);
 			}
 		});
-		btnDisciplinasOptativas.setBounds(22, 327, 169, 23);
+		btnDisciplinasOptativas.setBounds(22, 379, 169, 23);
 		btnDisciplinasOptativas.setBackground(UIManager.getColor("Button.disabledShadow"));
 		frameCurso.getContentPane().add(btnDisciplinasOptativas);
 		
@@ -148,14 +143,14 @@ public class JanelaGerenciaCurso {
 				JanelaInserirCurso.run();
 			}
 		});
-		btnAdicionarCurso.setBounds(22, 377, 169, 23);
+		btnAdicionarCurso.setBounds(22, 334, 169, 23);
 		frameCurso.getContentPane().add(btnAdicionarCurso);
 		btnAdicionarDisciplinas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JanelaInserirDisciplina.run();
 			}
 		});
-		btnAdicionarDisciplinas.setBounds(204, 377, 185, 23);
+		btnAdicionarDisciplinas.setBounds(204, 334, 185, 23);
 		
 		frameCurso.getContentPane().add(btnAdicionarDisciplinas);
 
@@ -181,7 +176,7 @@ public class JanelaGerenciaCurso {
 				}
 			}
 		});
-		btnRemoverCurso.setBounds(399, 377, 175, 23);
+		btnRemoverCurso.setBounds(399, 334, 175, 23);
 		frameCurso.getContentPane().add(btnRemoverCurso);
 		btnRemoverCurso.setBackground(UIManager.getColor("Button.disabledShadow"));
 
@@ -195,14 +190,13 @@ public class JanelaGerenciaCurso {
 	}
 	
 	public class Atualiza implements Runnable {
-	    @SuppressWarnings("unused")
-		public void run () {
+	    public void run () {
 	    		Datasource ds = new Datasource();
-	    		DAODepartamento daoDepartamento = new DAODepartamento(ds);
+	    		new DAOCursos(ds);
 	    		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
 	    		modelo.setNumRows(0);
-	    		for (Departamento BD2 : DAODepartamento.listarDepartamento()) {
-	    			modelo.addRow(new Object[] { BD2.getIddepartamento(), BD2.getNome(), BD2.getDescricao()});
+	    		for (Curso BD2 : DAOCursos.listarCursos()) {
+	    			modelo.addRow(new Object[] { BD2.getIdCurso(), BD2.getNome(), BD2.getIdDepartamento()});
 	    		}
 	    }
 	}

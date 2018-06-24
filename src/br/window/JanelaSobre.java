@@ -74,15 +74,15 @@ public class JanelaSobre {
 		lblCreatedBy.setBounds(77, 119, 75, 14);
 		frame.getContentPane().add(lblCreatedBy);
 
-		JLabel lblcreator1 = new JLabel("-Vitor");
+		JLabel lblcreator1 = new JLabel("-Vitor Cruz");
 		lblcreator1.setBounds(149, 119, 75, 14);
 		frame.getContentPane().add(lblcreator1);
 
-		JLabel lblcreator2 = new JLabel("-Rafael");
+		JLabel lblcreator2 = new JLabel("-Rafael Fran\u00E7a");
 		lblcreator2.setBounds(149, 138, 75, 14);
 		frame.getContentPane().add(lblcreator2);
 
-		JLabel lblCreator3 = new JLabel("-Washington");
+		JLabel lblCreator3 = new JLabel("-Washington Neto");
 		lblCreator3.setBounds(149, 159, 103, 14);
 		frame.getContentPane().add(lblCreator3);
 
