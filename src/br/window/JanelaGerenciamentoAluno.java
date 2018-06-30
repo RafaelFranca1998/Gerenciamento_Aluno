@@ -58,7 +58,7 @@ public class JanelaGerenciamentoAluno {
 //#################################################################################################
 	private static JFrame frmGerenciamentoAluno = new JFrame();
 	private TextField textFieldPesquisa = new TextField();
-	private static JTable tabelaResultado = new JTable();
+	private static JTable tabelaResultado ;
 	public JScrollPane scrollPaneAlunos = new JScrollPane();
 	public JScrollPane scrollPaneCursos = new JScrollPane();
 
@@ -130,6 +130,8 @@ public class JanelaGerenciamentoAluno {
 	 * Preenche a tabela com dados e atualiza.
 	 */
 	public static void atualizarTabelaAluno() {
+		ds =  null;
+		daoAluno = null;
 		ds = new Datasource();
 		daoAluno = new DAOAluno(ds);
 		DefaultTableModel modelo = (DefaultTableModel) tabelaResultado.getModel();
@@ -174,7 +176,7 @@ public class JanelaGerenciamentoAluno {
 		DefaultTableModel modelo = (DefaultTableModel) tabelaResultado.getModel();
 		modelo.setNumRows(0);
 		for (Aluno BD2 : daoAluno.listarPeloNome(name)) {
-			modelo.addRow(new Object[] { BD2.getId_aluno(), BD2.getNome(), BD2.getDataNascimento(), BD2.getidCurso(),
+			modelo.addRow(new Object[] { BD2.getId_aluno(), BD2.getNome(),BD2.getRg(),BD2.getCpf(), BD2.getDataNascimento(), BD2.getidCurso(),
 					BD2.getNomeCurso() });
 		}
 	}
@@ -220,6 +222,8 @@ public class JanelaGerenciamentoAluno {
 	 */
 	@SuppressWarnings("serial")
 	private void initialize() {
+		tabelaResultado = new JTable();
+		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
 		frmGerenciamentoAluno.setBounds((d.width / 2) - 600, (d.height / 2) - 300, 1200, 600);
@@ -242,7 +246,7 @@ public class JanelaGerenciamentoAluno {
 
 		lblFiltroCurso.setBounds(20, 111, 123, 14);
 		panelPesquisar.add(lblFiltroCurso);
-		textFieldPesquisa.setBounds(20, 38, 175, 20);
+		textFieldPesquisa.setBounds(20, 38, 163, 20);
 		panelPesquisar.add(textFieldPesquisa);
 		panelCursos.setBorder(UIManager.getBorder("ToolTip.border"));
 		panelCursos.setBackground(Color.WHITE);
@@ -274,6 +278,7 @@ public class JanelaGerenciamentoAluno {
 		panelPesquisar.add(lblFiltrosDePesquisa);
 
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String name = textFieldPesquisa.getText();
@@ -285,7 +290,7 @@ public class JanelaGerenciamentoAluno {
 
 			}
 		});
-		btnPesquisar.setBounds(201, 38, 79, 23);
+		btnPesquisar.setBounds(189, 35, 91, 23);
 		panelPesquisar.add(btnPesquisar);
 		choicePesquisarCurso.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -402,7 +407,7 @@ public class JanelaGerenciamentoAluno {
 				JanelaInserirAluno.run();
 			}
 		});
-		btnGerenciarCursos.setBounds(63, 71, 190, 24);
+		btnGerenciarCursos.setBounds(63, 140, 190, 24);
 		panelFerramentas.add(btnGerenciarCursos);
 
 		btnGerenciarCursos.addActionListener(new ActionListener() {
@@ -411,7 +416,7 @@ public class JanelaGerenciamentoAluno {
 			}
 		});
 		btnGerenciarCursos.setBackground(UIManager.getColor("Button.disabledShadow"));
-		btnInserirAluno.setBounds(63, 197, 190, 25);
+		btnInserirAluno.setBounds(63, 75, 190, 25);
 		btnInserirAluno.setBackground(UIManager.getColor("Button.disabledShadow"));
 		panelFerramentas.add(btnInserirAluno);
 		btnGerenciarDepartamento.addActionListener(new ActionListener() {
@@ -419,7 +424,7 @@ public class JanelaGerenciamentoAluno {
 				JanelaGerenciaDepartamento.run();
 			}
 		});
-		btnGerenciarDepartamento.setBounds(63, 136, 190, 25);
+		btnGerenciarDepartamento.setBounds(63, 199, 190, 25);
 		btnGerenciarDepartamento.setBackground(UIManager.getColor("Button.disabledShadow"));
 
 		panelFerramentas.add(btnGerenciarDepartamento);

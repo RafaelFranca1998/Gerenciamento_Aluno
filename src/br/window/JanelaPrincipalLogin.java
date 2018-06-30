@@ -118,7 +118,7 @@ public class JanelaPrincipalLogin {
 		passwordFieldSenha.setColumns(10);
 		
 		JButton btnLogar = new JButton("Logar");
-		btnLogar.setBounds(59, 205, 89, 23);
+		btnLogar.setBounds(80, 205, 89, 23);
 		btnLogar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
@@ -127,6 +127,7 @@ public class JanelaPrincipalLogin {
 				if (daoUsuario.checkLogin(textFieldLogin.getText(), passwordFieldSenha. getText())) {
 					JOptionPane.showMessageDialog(lblSenha, "Sucesso", "Login", JOptionPane.INFORMATION_MESSAGE);
 					JanelaGerenciamentoAluno.run();
+					JanelaGerenciamentoAluno.atualizarTabelaAluno();
 					frmLogin.dispose();
 				}else {
 					lblLoginOuSenha.setVisible(true);
@@ -136,7 +137,7 @@ public class JanelaPrincipalLogin {
 		frmLogin.getContentPane().add(btnLogar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(189, 205, 89, 23);
+		btnCancelar.setBounds(196, 205, 89, 23);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmLogin.dispose();

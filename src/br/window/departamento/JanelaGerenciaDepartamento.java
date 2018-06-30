@@ -45,7 +45,7 @@ public class JanelaGerenciaDepartamento {
 	 */
 	public JanelaGerenciaDepartamento() {
 		initialize();
-		
+		initThread();
 	}
 
 	/**
@@ -61,15 +61,27 @@ public class JanelaGerenciaDepartamento {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		A =  new Atualiza();
-		initThread();
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(21, 11, 372, 322);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
-		table.setCellSelectionEnabled(true);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
 				{null, null, null},
 				{null, null, null},
 				{null, null, null},
@@ -99,7 +111,7 @@ public class JanelaGerenciaDepartamento {
 				JanelaInserirDepartamento.run();
 			}
 		});
-		btnInserirDepartamento.setBounds(424, 255, 163, 23);
+		btnInserirDepartamento.setBounds(403, 255, 184, 23);
 		frame.getContentPane().add(btnInserirDepartamento);
 		
 		JButton btnRemoverDepartamento = new JButton("Remover Departamento");
@@ -131,7 +143,7 @@ public class JanelaGerenciaDepartamento {
 			}	
 			}
 		});
-		btnRemoverDepartamento.setBounds(424, 289, 163, 23);
+		btnRemoverDepartamento.setBounds(403, 290, 184, 23);
 		frame.getContentPane().add(btnRemoverDepartamento);
 	}
 	

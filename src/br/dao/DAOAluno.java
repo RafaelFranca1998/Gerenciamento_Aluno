@@ -137,7 +137,7 @@ public class DAOAluno {
 	public ArrayList<Aluno> listarPeloNome(String name) {
 		try {
 			String nomelike = name + "%";
-			PreparedStatement ps = dataSource.getConnection().prepareStatement("SELECT a.idAluno , a.nome ,a.rg,a.cpf ,a.dataNascimento, a.idCurso, c.nome "
+			PreparedStatement ps = dataSource.getConnection().prepareStatement("SELECT a.idAluno , a.nome , a.rg , a.cpf , a.dataNascimento , a.idCurso , c.nome "
 					+ "FROM tblaluno AS a JOIN tblcurso AS c ON (c.idCurso = a.idCurso) WHERE a.nome LIKE ?");
 			ps.setString(1, nomelike);
 			ResultSet rs = ps.executeQuery();

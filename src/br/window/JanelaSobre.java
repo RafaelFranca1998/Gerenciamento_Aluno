@@ -75,11 +75,11 @@ public class JanelaSobre {
 		frame.getContentPane().add(lblCreatedBy);
 
 		JLabel lblcreator1 = new JLabel("-Vitor Cruz");
-		lblcreator1.setBounds(149, 119, 75, 14);
+		lblcreator1.setBounds(149, 119, 103, 14);
 		frame.getContentPane().add(lblcreator1);
 
 		JLabel lblcreator2 = new JLabel("-Rafael Fran\u00E7a");
-		lblcreator2.setBounds(149, 138, 75, 14);
+		lblcreator2.setBounds(149, 138, 103, 14);
 		frame.getContentPane().add(lblcreator2);
 
 		JLabel lblCreator3 = new JLabel("-Washington Neto");
@@ -97,12 +97,12 @@ public class JanelaSobre {
 		btnFechar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		frame.getContentPane().add(btnFechar);
 		
-		JLabel lblCreator4 = new JLabel("-Leonardo");
-		lblCreator4.setBounds(149, 178, 75, 14);
+		JLabel lblCreator4 = new JLabel("-Leonardo Luiz Oliveira");
+		lblCreator4.setBounds(149, 178, 147, 14);
 		frame.getContentPane().add(lblCreator4);
 		
-		JLabel lblCreator5 = new JLabel("-Felipe");
-		lblCreator5.setBounds(149, 196, 63, 14);
+		JLabel lblCreator5 = new JLabel("-Felipe Araujo");
+		lblCreator5.setBounds(149, 196, 103, 14);
 		frame.getContentPane().add(lblCreator5);
 	}
 }

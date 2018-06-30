@@ -59,7 +59,7 @@ public class JanelaInserirDisciplina extends JFrame {
 		frame.setResizable(false);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
-		frame.setBounds((d.width / 2) - 300, (d.height / 2) - 150, 500, 300);
+		frame.setBounds((d.width / 2) - 300, (d.height / 2) - 150, 434, 200);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -70,7 +70,7 @@ public class JanelaInserirDisciplina extends JFrame {
 				frame.dispose();
 			}
 		});
-		btnFechar.setBounds(282, 220, 89, 23);
+		btnFechar.setBounds(293, 117, 89, 23);
 		frame.getContentPane().add(btnFechar);
 
 		JButton btnAdicionar = new JButton("Adicionar");
@@ -92,16 +92,16 @@ public class JanelaInserirDisciplina extends JFrame {
 				}
 			}
 		});
-		btnAdicionar.setBounds(152, 220, 89, 23);
+		btnAdicionar.setBounds(127, 117, 89, 23);
 		frame.getContentPane().add(btnAdicionar);
 
 		textFieldNomedoCurso = new TextField();
-		textFieldNomedoCurso.setBounds(123, 115, 355, 20);
+		textFieldNomedoCurso.setBounds(127, 55, 281, 20);
 		frame.getContentPane().add(textFieldNomedoCurso);
 		textFieldNomedoCurso.setColumns(10);
 
 		JLabel lblNomedoCurso = new JLabel("Nome da Disciplina");
-		lblNomedoCurso.setBounds(25, 115, 206, 14);
+		lblNomedoCurso.setBounds(10, 55, 206, 14);
 		frame.getContentPane().add(lblNomedoCurso);
 
 	}

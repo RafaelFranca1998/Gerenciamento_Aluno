@@ -155,7 +155,6 @@ public class JanelaInserirAluno extends JFrame {
 		frame.getContentPane().add(scrollPane);
 
 		table = new JTable();
-		table.setCellSelectionEnabled(true);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setBounds(0, 0, 223, 1);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -207,7 +206,7 @@ public class JanelaInserirAluno extends JFrame {
 				ds = new Datasource();
 				daoAluno = new DAOAluno(ds);
 				Random R = new Random();
-				idaluno = R.nextInt((200 - 100) + 1) + 100;
+				idaluno = R.nextInt(1000);
 
 				try {
 					BDAlunos.setId_aluno(idaluno);

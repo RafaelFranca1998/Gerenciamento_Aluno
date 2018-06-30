@@ -23,7 +23,7 @@ public class JanelaGerenciaCurso {
 
 	private JFrame frameCurso = new JFrame();
 	private JScrollPane scrollPane;
-	private JTable table;
+	private JTable tableGerenciaCursos;
 	private JButton btnExibirAlunosDo = new JButton("Exibir Alunos do Curso");
 	private JButton btnDisciplinasObrigatrias= new JButton("Disciplinas Obrigat\u00F3rias");;
 	private JButton btnDisciplinasOptativas = new JButton("Disciplinas Optativas");
@@ -55,7 +55,7 @@ public class JanelaGerenciaCurso {
 	 */
 	@SuppressWarnings("serial")
 	private void initialize() {
-		table = new JTable();
+		tableGerenciaCursos = new JTable();
 		scrollPane = new JScrollPane();
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension d = tk.getScreenSize();
@@ -69,10 +69,10 @@ public class JanelaGerenciaCurso {
 
 		scrollPane.setBounds(0, 0, 594, 289);
 
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBounds(0, 0, 439, 87);
+		tableGerenciaCursos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableGerenciaCursos.setBounds(0, 0, 439, 87);
 
-		table.setModel(new DefaultTableModel(
+		tableGerenciaCursos.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null},
 				{null, null},
@@ -95,15 +95,15 @@ public class JanelaGerenciaCurso {
 				return columnEditables[column];
 			}
 		});
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(0).setPreferredWidth(40);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setPreferredWidth(554);
-		scrollPane.setViewportView(table);
+		tableGerenciaCursos.getColumnModel().getColumn(0).setResizable(false);
+		tableGerenciaCursos.getColumnModel().getColumn(0).setPreferredWidth(40);
+		tableGerenciaCursos.getColumnModel().getColumn(1).setResizable(false);
+		tableGerenciaCursos.getColumnModel().getColumn(1).setPreferredWidth(554);
+		scrollPane.setViewportView(tableGerenciaCursos);
 		
 		btnExibirAlunosDo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object coluna = table.getValueAt(table.getSelectedRow(), 0);
+				Object coluna = tableGerenciaCursos.getValueAt(tableGerenciaCursos.getSelectedRow(), 0);
 				int idCurso = Integer.parseInt(coluna.toString());
 				JanelaAlunosCurso.run(idCurso);
 			}
@@ -112,24 +112,24 @@ public class JanelaGerenciaCurso {
 		frameCurso.getContentPane().add(btnExibirAlunosDo);
 		btnDisciplinasObrigatrias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object coluna = table.getValueAt(table.getSelectedRow(), 0);
+				Object coluna = tableGerenciaCursos.getValueAt(tableGerenciaCursos.getSelectedRow(), 0);
 				int idCurso = Integer.parseInt(coluna.toString());
 				JanelaDisciplinasObrigatorias.run(idCurso);
 			}
 		});
  
-		btnDisciplinasObrigatrias.setBounds(201, 379, 188, 23);
+		btnDisciplinasObrigatrias.setBounds(210, 379, 175, 23);
 		frameCurso.getContentPane().add(btnDisciplinasObrigatrias);
 
 		
 		btnDisciplinasOptativas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object coluna = table.getValueAt(table.getSelectedRow(), 0);
+				Object coluna = tableGerenciaCursos.getValueAt(tableGerenciaCursos.getSelectedRow(), 0);
 				int idCurso = Integer.parseInt(coluna.toString());
 				JanelaDisciplinasOptativas.run(idCurso);
 			}
 		});
-		btnDisciplinasOptativas.setBounds(22, 379, 169, 23);
+		btnDisciplinasOptativas.setBounds(22, 379, 175, 23);
 		btnDisciplinasOptativas.setBackground(UIManager.getColor("Button.disabledShadow"));
 		frameCurso.getContentPane().add(btnDisciplinasOptativas);
 		
@@ -143,14 +143,14 @@ public class JanelaGerenciaCurso {
 				JanelaInserirCurso.run();
 			}
 		});
-		btnAdicionarCurso.setBounds(22, 334, 169, 23);
+		btnAdicionarCurso.setBounds(210, 334, 175, 23);
 		frameCurso.getContentPane().add(btnAdicionarCurso);
 		btnAdicionarDisciplinas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JanelaInserirDisciplina.run();
 			}
 		});
-		btnAdicionarDisciplinas.setBounds(204, 334, 185, 23);
+		btnAdicionarDisciplinas.setBounds(22, 334, 175, 23);
 		
 		frameCurso.getContentPane().add(btnAdicionarDisciplinas);
 
@@ -162,17 +162,21 @@ public class JanelaGerenciaCurso {
 				Datasource ds = new Datasource();
 				new DAOCursos(ds);
 				Curso curso =  new Curso();
-				Object coluna = table.getValueAt(table.getSelectedRow(), 0);
-				if (JOptionPane.showConfirmDialog(table,
-						"Esta Ação não poderá ser desfeita! \n Deseja remover o Curso?", "Atenção!",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-					int id = Integer.parseInt(coluna.toString());
-
-					System.out.println("[Log] ID= " + id + JOptionPane.YES_OPTION);
-					curso.setIdCurso(id);
-					DAOCursos.deleteCurso(curso);
-					initThreadAtualiza();
+				Object coluna = tableGerenciaCursos.getValueAt(tableGerenciaCursos.getSelectedRow(), 0);
+				try {
+					if (JOptionPane.showConfirmDialog(tableGerenciaCursos,
+							"Esta Ação não poderá ser desfeita! \n Deseja remover o Curso?", "Atenção!",
+							JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						
+						int id = Integer.parseInt(coluna.toString());
+						
+						System.out.println("[Log] ID= " + id + JOptionPane.YES_OPTION);
+						curso.setIdCurso(id);
+						DAOCursos.deleteCurso(curso);
+						initThreadAtualiza();
+					}					
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(tableGerenciaCursos,"Não foi possivel remover! \n Ainda existem alunos no curso!" );
 				}
 			}
 		});
@@ -191,9 +195,8 @@ public class JanelaGerenciaCurso {
 	
 	public class Atualiza implements Runnable {
 	    public void run () {
-	    		Datasource ds = new Datasource();
-	    		new DAOCursos(ds);
-	    		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+	    		new DAOCursos(new Datasource());
+	    		DefaultTableModel modelo = (DefaultTableModel) tableGerenciaCursos.getModel();
 	    		modelo.setNumRows(0);
 	    		for (Curso BD2 : DAOCursos.listarCursos()) {
 	    			modelo.addRow(new Object[] { BD2.getIdCurso(), BD2.getNome(), BD2.getIdDepartamento()});

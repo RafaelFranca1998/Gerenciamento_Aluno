@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.TextEvent;
-import java.awt.event.TextListener;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
@@ -22,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -32,7 +31,6 @@ import br.dao.Datasource;
 import br.model.Aluno;
 import br.model.Curso;
 import br.window.JanelaGerenciamentoAluno;
-import javax.swing.UIManager;
 
 public class JanelaEditarAluno extends JFrame {
 	private static final long serialVersionUID = 7889475273883412172L;
@@ -90,9 +88,6 @@ public class JanelaEditarAluno extends JFrame {
 		frame.getContentPane().setLayout(null);
 		// Choices-----------------------------------------------------------------------------------------------
 		choiceDia.setBounds(160, 114, 60, 20);
-		choiceDia.setEnabled(false);
-		choiceMes.setEnabled(false);
-		choiceAno.setEnabled(false);
 		choiceMes.setBounds(224, 114, 60, 20);
 		choiceAno.setBounds(290, 114, 60, 20);
 		frame.getContentPane().add(choiceDia);
@@ -124,7 +119,7 @@ public class JanelaEditarAluno extends JFrame {
 		btnFechar.setBounds(355, 376, 89, 23);
 		frame.getContentPane().add(btnFechar);
 
-		JButton btnAdicionar = new JButton("Adicionar");
+		JButton btnAdicionar = new JButton("Concluir");
 		btnAdicionar.setBackground(UIManager.getColor("Button.disabledShadow"));
 		btnAdicionar.setBounds(148, 376, 89, 23);
 		frame.getContentPane().add(btnAdicionar);
@@ -187,24 +182,9 @@ public class JanelaEditarAluno extends JFrame {
 		table.getColumnModel().getColumn(1).setResizable(false);
 		scrollPane.setViewportView(table);
 
-		textFieldNome.addTextListener(new TextListener() {
-			public void textValueChanged(TextEvent e) {
-				if (textFieldNome.getText().length() != 0) {
-					choiceDia.setEnabled(true);
-					choiceMes.setEnabled(true);
-					choiceAno.setEnabled(true);
-				} else {
-					choiceDia.setEnabled(false);
-					choiceMes.setEnabled(false);
-					choiceAno.setEnabled(false);
-				}
-			}
-		});
-
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ds = new Datasource();
-				daoAluno = new DAOAluno(ds);
+				daoAluno = new DAOAluno( new Datasource() );
 				
 				try {
 					BDAlunos.setId_aluno(idaluno);
@@ -267,8 +247,7 @@ public class JanelaEditarAluno extends JFrame {
 	}
 
 	private void preencherCampos() {
-		Datasource ds2 = new Datasource();
-		DAOAluno daoAluno2 = new DAOAluno(ds2);
+		DAOAluno daoAluno2 = new DAOAluno(new Datasource());
 		@SuppressWarnings("rawtypes")
 		List alunoList = daoAluno2.selecionarId(idaluno);
 		Aluno aluno = (Aluno) alunoList.get(0);

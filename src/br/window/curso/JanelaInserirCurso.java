@@ -140,6 +140,8 @@ public class JanelaInserirCurso extends JFrame {
 					}
 					JOptionPane.showMessageDialog(frame, "Adicionado!", "Menssagem", 1);
 					textFieldNomedoCurso.setText("");
+					JanelaGerenciaCurso.initThreadAtualiza();
+					frame.dispose();
 
 				} catch (Exception a) {
 					JOptionPane.showMessageDialog(frame, "Preencha todos os campos", "Erro!", 2);
